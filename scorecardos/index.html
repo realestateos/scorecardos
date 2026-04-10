@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorecard OS - Real Estate Performance Tracking</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .nav-links a {
+            margin-left: 32px;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 22px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 18px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        /* Problem/Solution */
+        .problem-solution {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .problem-solution h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .card.problem {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .card.solution {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card.problem h3 {
+            color: #dc2626;
+        }
+
+        .card.solution h3 {
+            color: #16a34a;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            padding: 12px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .card.problem li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .card.solution li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        .step h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: #666;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .price span {
+            font-size: 18px;
+            font-weight: 400;
+            color: #666;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 32px 0;
+            text-align: left;
+        }
+
+        .pricing-card li {
+            padding: 12px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .pricing-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .stripe-button {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stripe-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .stripe-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 24px 0;
+        }
+
+        .faq-item h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .faq-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            background: #1a1a1a;
+            color: #999;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 16px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 16px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">Scorecard OS</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Stop Guessing. Start Scaling.</h1>
+            <p>The performance scorecard system that helps real estate teams track what actually matters — leads, conversions, ROI, and team accountability.</p>
+            <a href="#pricing" class="cta-button">Get Started — $20/month</a>
+        </div>
+    </section>
+
+    <section class="problem-solution">
+        <div class="container">
+            <h2>Why Most Teams Struggle to Scale</h2>
+            <div class="comparison">
+                <div class="card problem">
+                    <h3>The Problem</h3>
+                    <ul>
+                        <li>No visibility into lead source performance</li>
+                        <li>CRM data is messy and unreliable</li>
+                        <li>Can't track ROI by channel or campaign</li>
+                        <li>Team accountability is based on gut feel</li>
+                        <li>Monthly reporting takes hours to compile</li>
+                    </ul>
+                </div>
+                <div class="card solution">
+                    <h3>The Solution</h3>
+                    <ul>
+                        <li>Clear dashboards showing what drives revenue</li>
+                        <li>Automated data sync from your CRM</li>
+                        <li>Real-time ROI tracking by source</li>
+                        <li>Scorecards that motivate your team</li>
+                        <li>Reports generated in one click</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Everything You Need to Track Performance</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>CRM Integration</h3>
+                    <p>Connects seamlessly with Follow Up Boss, KVCore, HubSpot, and more. Data flows automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>ROI by Source</h3>
+                    <p>See exactly which lead sources and campaigns are profitable. Cut waste, double down on winners.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Conversion Tracking</h3>
+                    <p>Monitor lead-to-appointment and appointment-to-close rates across your entire pipeline.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Team Scorecards</h3>
+                    <p>Weekly scorecards for agents, ISAs, and marketing teams. Accountability without micromanagement.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Automated Reports</h3>
+                    <p>Weekly and monthly reports delivered to your inbox. No more manual spreadsheet wrangling.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Dashboard</h3>
+                    <p>Check your numbers anywhere. Perfect for agents on the go and principals checking in after hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2>Get Started in 3 Simple Steps</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Connect Your CRM</h3>
+                    <p>One-click integration with your existing systems. No complicated setup required.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Customize Your Scorecard</h3>
+                    <p>Choose the metrics that matter for your team. Leads, appointments, contracts, closings.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Start Tracking</h3>
+                    <p>Data syncs automatically. Get your first report this week and start optimizing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Scorecard OS</h3>
+                    <div class="price">$20<span>/month</span></div>
+                    <ul>
+                        <li>Unlimited team members</li>
+                        <li>CRM integration</li>
+                        <li>Weekly scorecards</li>
+                        <li>ROI tracking dashboard</li>
+                        <li>Automated email reports</li>
+                        <li>Google Sheets template</li>
+                    </ul>
+                    <button class="stripe-button" id="checkout-button-monthly" data-plan="monthly">
+                        Get Started
+                    </button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="badge">Best Value</div>
+                    <h3>REOS Subscription</h3>
+                    <div class="price">Included<span>with REOS</span></div>
+                    <ul>
+                        <li>Everything in Scorecard OS</li>
+                        <li>Plus all REOS tools</li>
+                        <li>Priority support</li>
+                        <li>Custom integrations</li>
+                        <li>Team training included</li>
+                        <li>White-label options</li>
+                    </ul>
+                    <button class="stripe-button" id="checkout-button-reos" data-plan="reos">
+                        View REOS Plans
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4>What CRMs do you integrate with?</h4>
+                    <p>We currently support Follow Up Boss, KVCore, HubSpot, and Salesforce. More integrations are added monthly based on customer requests.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I cancel anytime?</h4>
+                    <p>Yes. No contracts, no setup fees. Cancel directly from your account or email us and we'll handle it same day.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Is there a setup fee?</h4>
+                    <p>Nope. $20/month is all you pay. The Google Sheets template is ready to go — just connect your CRM and start tracking.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What if I'm already a REOS subscriber?</h4>
+                    <p>Scorecard OS is included with your REOS subscription at no extra cost. Sign in to your REOS dashboard to access it.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you offer refunds?</h4>
+                    <p>If you're not satisfied within the first 14 days, we'll refund your payment. No questions asked.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Scorecard OS. A Real Estate OS product.</p>
+            <p>
+                <a href="mailto:support@scorecardos.com">support@scorecardos.com</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Stripe Checkout Integration
+        // Replace these with your actual Stripe price IDs
+        const STRIPE_CONFIG = {
+            publishableKey: 'pk_live_YOUR_PUBLISHABLE_KEY', // Replace with your Stripe publishable key
+            prices: {
+                monthly: 'price_MONTHLY_PLAN_ID',  // Replace with your $20/month price ID
+                reos: 'https://realestateos.com/pricing'  // Link to REOS pricing page
+            }
+        };
+
+        // Initialize Stripe
+        let stripe;
+        try {
+            stripe = Stripe(STRIPE_CONFIG.publishableKey);
+        } catch (e) {
+            console.log('Stripe not initialized - add your publishable key');
+        }
+
+        // Handle checkout button clicks
+        document.getElementById('checkout-button-monthly').addEventListener('click', async function() {
+            const button = this;
+            button.disabled = true;
+            button.textContent = 'Loading...';
+
+            try {
+                // For testing/demo without backend - show alert
+                if (STRIPE_CONFIG.publishableKey.includes('YOUR_PUBLISHABLE_KEY')) {
+                    alert('Stripe not configured yet.\\n\\nTo set up:\\n1. Create a Stripe account at stripe.com\\n2. Create a product with $20/month pricing\\n3. Update STRIPE_CONFIG in this file with your keys\\n4. Or connect a backend to create checkout sessions');
+                    button.disabled = false;
+                    button.textContent = 'Get Started';
+                    return;
+                }
+
+                // Create checkout session via your backend
+                const response = await fetch('/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        priceId: STRIPE_CONFIG.prices.monthly,
+                        successUrl: window.location.origin + '/success',
+                        cancelUrl: window.location.origin + '/',
+                    }),
+                });
+
+                const session = await response.json();
+                
+                // Redirect to Stripe Checkout
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.id,
+                });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Get Started';
+            }
+        });
+
+        document.getElementById('checkout-button-reos').addEventListener('click', function() {
+            window.location.href = STRIPE_CONFIG.prices.reos;
+        });
+    </script>
+</body>
+</html>
