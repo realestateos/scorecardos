@@ -3,800 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScoreCard OS — Automated Lead Tracking for Lofty CRM</title>
+    <title>ScoreCard OS - Real Estate KPI Dashboard</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --navy: #0F1923;
-            --navy-light: #1a2634;
-            --orange: #E8500A;
-            --orange-hover: #c74309;
-            --white: #ffffff;
-            --gray: #64748b;
-            --gray-light: #f1f5f9;
-            --success: #22c55e;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--navy);
-            background: var(--white);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            background: var(--navy);
-            padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--white);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--orange);
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        nav a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--white);
-        }
-
-        .nav-cta {
-            background: var(--orange);
-            color: var(--white) !important;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-
-        .nav-cta:hover {
-            background: var(--orange-hover);
-        }
-
-        /* Hero */
-        .hero {
-            background: var(--navy);
-            padding: 100px 0 80px;
-            text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--orange);
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-size: 52px;
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1.1;
-            margin-bottom: 24px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero p {
-            font-size: 20px;
-            color: rgba(255,255,255,0.8);
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--orange);
-            color: var(--white);
-            padding: 18px 36px;
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .hero-cta:hover {
-            background: var(--orange-hover);
-            transform: translateY(-2px);
-        }
-
-        .hero-subline {
-            margin-top: 16px;
-            font-size: 14px;
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* Problem */
-        .problem {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
-        .problem h2 {
-            text-align: center;
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 60px;
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .problem-card {
-            text-align: center;
-            padding: 40px 24px;
-            background: var(--gray-light);
-            border-radius: 16px;
-        }
-
-        .problem-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .problem-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .problem-card p {
-            color: var(--gray);
-            font-size: 15px;
-        }
-
-        /* Pipeline Section */
-        .pipeline {
-            padding: 100px 0;
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        .pipeline h2 {
-            text-align: center;
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .pipeline > .container > p {
-            text-align: center;
-            font-size: 18px;
-            color: rgba(255,255,255,0.8);
-            max-width: 700px;
-            margin: 0 auto 60px;
-        }
-
-        .pipeline-flow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        .pipeline-stage {
-            background: rgba(255,255,255,0.1);
-            padding: 20px 24px;
-            border-radius: 12px;
-            text-align: center;
-            min-width: 140px;
-        }
-
-        .pipeline-stage h4 {
-            font-size: 14px;
-            color: var(--orange);
-            margin-bottom: 4px;
-        }
-
-        .pipeline-stage p {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .pipeline-arrow {
-            font-size: 24px;
-            color: var(--orange);
-        }
-
-        .pipeline-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .pipeline-feature {
-            text-align: center;
-            padding: 32px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .pipeline-feature h3 {
-            color: var(--orange);
-            font-size: 18px;
-            margin-bottom: 12px;
-        }
-
-        .pipeline-feature p {
-            color: rgba(255,255,255,0.8);
-            font-size: 15px;
-        }
-
-        /* What You Get */
-        .what-you-get {
-            padding: 100px 0;
-            background: var(--gray-light);
-        }
-
-        .what-you-get h2 {
-            text-align: center;
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .what-you-get > .container > p {
-            text-align: center;
-            color: var(--gray);
-            font-size: 18px;
-            margin-bottom: 60px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .feature-card {
-            background: var(--white);
-            padding: 32px;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .feature-icon {
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            font-size: 15px;
-            color: var(--gray);
-        }
-
-        /* Reports Section */
-        .reports {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
-        .reports .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .reports-content h2 {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .reports-content > p {
-            font-size: 18px;
-            color: var(--gray);
-            margin-bottom: 40px;
-        }
-
-        .report-list {
-            list-style: none;
-        }
-
-        .report-list li {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .report-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--orange);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .reports-visual {
-            background: var(--gray-light);
-            border-radius: 20px;
-            padding: 40px;
-        }
-
-        .email-preview {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .email-header {
-            font-size: 12px;
-            color: var(--gray);
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .email-subject {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 24px;
-        }
-
-        .email-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        .email-metric {
-            background: var(--gray-light);
-            padding: 16px;
-            border-radius: 8px;
-        }
-
-        .email-metric-label {
-            font-size: 12px;
-            color: var(--gray);
-            margin-bottom: 4px;
-        }
-
-        .email-metric-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--navy);
-        }
-
-        /* Deals Tab */
-        .deals {
-            padding: 100px 0;
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        .deals .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .deals-content h2 {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .deals-content > p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 40px;
-        }
-
-        .deal-features {
-            list-style: none;
-        }
-
-        .deal-features li {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .deal-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--orange);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .deal-text h4 {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .deal-text p {
-            color: rgba(255,255,255,0.7);
-            font-size: 14px;
-        }
-
-        .deals-visual {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .deals-preview {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 24px;
-            color: var(--navy);
-        }
-
-        .deals-preview h4 {
-            font-size: 14px;
-            color: var(--gray);
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-
-        .deal-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--gray-light);
-            font-size: 14px;
-        }
-
-        .deal-row:last-child {
-            border-bottom: none;
-        }
-
-        .deal-label {
-            color: var(--gray);
-        }
-
-        .deal-value {
-            font-weight: 600;
-        }
-
-        .deal-value.positive {
-            color: var(--success);
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 100px 0;
-            background: var(--gray-light);
-        }
-
-        .how-it-works h2 {
-            text-align: center;
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 60px;
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 56px;
-            height: 56px;
-            background: var(--orange);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 auto 20px;
-        }
-
-        .step h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .step p {
-            font-size: 15px;
-            color: var(--gray);
-        }
-
-        /* Pricing */
-        .pricing {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
-        .pricing h2 {
-            text-align: center;
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .pricing > .container > p {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 48px;
-        }
-
-        .pricing-card {
-            background: var(--gray-light);
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 48px;
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .pricing-card h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .price {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .price span {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--gray);
-        }
-
-        .pricing-note {
-            font-size: 14px;
-            color: var(--gray);
-            margin-bottom: 32px;
-        }
-
-        .pricing-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 32px;
-        }
-
-        .pricing-features li {
-            padding: 12px 0;
-            padding-left: 28px;
-            position: relative;
-        }
-
-        .pricing-features li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        .pricing-cta {
-            display: block;
-            width: 100%;
-            background: var(--orange);
-            color: var(--white);
-            padding: 16px;
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-
-        .pricing-cta:hover {
-            background: var(--orange-hover);
-        }
-
-        /* FAQ */
-        .faq {
-            padding: 100px 0;
-            background: var(--gray-light);
-        }
-
-        .faq h2 {
-            text-align: center;
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 60px;
-        }
-
-        .faq-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
-            cursor: pointer;
-        }
-
-        .faq-item h4 {
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-item h4::after {
-            content: "+";
-            font-size: 24px;
-            color: var(--orange);
-            font-weight: 300;
-        }
-
-        .faq-item.active h4::after {
-            content: "−";
-        }
-
-        .faq-item p {
-            color: var(--gray);
-            margin-top: 16px;
-            display: none;
-        }
-
-        .faq-item.active p {
-            display: block;
-        }
-
-        /* Footer CTA */
-        .footer-cta {
-            padding: 100px 0;
-            background: var(--navy);
-            text-align: center;
-        }
-
-        .footer-cta h2 {
-            color: var(--white);
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 32px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .footer-cta .hero-cta {
-            margin-bottom: 16px;
-        }
-
-        .footer-cta p {
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            background: var(--navy-light);
-            text-align: center;
-        }
-
-        footer p {
-            color: rgba(255,255,255,0.5);
-            font-size: 14px;
-        }
-
-        footer a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            margin: 0 12px;
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            nav a:not(.nav-cta) {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .problem-grid,
-            .pipeline-flow,
-            .pipeline-features,
-            .features-grid,
-            .steps {
-                grid-template-columns: 1fr;
-            }
-
-            .pipeline-arrow {
-                transform: rotate(90deg);
-            }
-
-            .reports .container,
-            .deals .container {
-                grid-template-columns: 1fr;
-            }
-
-            .email-metrics {
-                grid-template-columns: 1fr;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--navy:#0F1923;--navy-light:#1a2634;--orange:#E8500A;--white:#fff;--gray:#64748b;--gray-light:#f1f5f9}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;color:var(--navy)}
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        header{background:var(--navy);padding:16px 0;position:sticky;top:0;z-index:100}
+        header .container{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:24px;font-weight:800;color:var(--white);text-decoration:none}
+        .logo span{color:var(--orange)}
+        nav{display:flex;align-items:center;gap:32px}
+        nav a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:15px;font-weight:500}
+        nav a:hover{color:var(--white)}
+        .nav-cta{background:var(--orange);color:var(--white)!important;padding:10px 20px;border-radius:6px;font-weight:600}
+        .hero{background:var(--navy);padding:100px 0 80px;text-align:center}
+        .hero h1{font-size:52px;font-weight:800;color:var(--white);line-height:1.1;margin-bottom:24px}
+        .hero p{font-size:20px;color:rgba(255,255,255,0.8);max-width:700px;margin:0 auto 40px}
+        .hero-cta{display:inline-block;background:var(--orange);color:var(--white);padding:18px 36px;font-size:18px;font-weight:600;text-decoration:none;border-radius:8px}
+        .hero-subline{margin-top:16px;font-size:14px;color:rgba(255,255,255,0.6)}
+        .problem{padding:100px 0;background:var(--white)}
+        .problem h2{text-align:center;font-size:40px;font-weight:700;margin-bottom:60px}
+        .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+        .problem-card{text-align:center;padding:40px 24px;background:var(--gray-light);border-radius:16px}
+        .problem-icon{font-size:48px;margin-bottom:20px}
+        .problem-card h3{font-size:18px;font-weight:700;margin-bottom:12px}
+        .problem-card p{color:var(--gray);font-size:15px}
+        .pipeline{padding:100px 0;background:var(--navy);color:var(--white)}
+        .pipeline h2{text-align:center;font-size:40px;font-weight:700;margin-bottom:24px}
+        .pipeline>p{text-align:center;font-size:18px;color:rgba(255,255,255,0.8);max-width:700px;margin:0 auto 60px}
+        .pipeline-flow{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:60px}
+        .pipeline-stage{background:rgba(255,255,255,0.1);padding:20px 24px;border-radius:12px;text-align:center;min-width:140px}
+        .pipeline-stage h4{font-size:14px;color:var(--orange);margin-bottom:4px}
+        .pipeline-stage p{font-size:18px;font-weight:600}
+        .pipeline-arrow{font-size:24px;color:var(--orange)}
+        .pipeline-features{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+        .pipeline-feature{text-align:center;padding:32px;background:rgba(255,255,255,0.05);border-radius:16px;border:1px solid rgba(255,255,255,0.1)}
+        .pipeline-feature h3{color:var(--orange);font-size:18px;margin-bottom:12px}
+        .pipeline-feature p{color:rgba(255,255,255,0.8);font-size:15px}
+        .features{padding:100px 0;background:var(--gray-light)}
+        .features h2{text-align:center;font-size:40px;font-weight:700;margin-bottom:16px}
+        .features>p{text-align:center;color:var(--gray);font-size:18px;margin-bottom:60px}
+        .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+        .feature-card{background:var(--white);padding:32px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+        .feature-icon{font-size:32px;margin-bottom:16px}
+        .feature-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+        .feature-card p{font-size:15px;color:var(--gray)}
+        .how-it-works{padding:100px 0;background:var(--white)}
+        .how-it-works h2{text-align:center;font-size:40px;font-weight:700;margin-bottom:60px}
+        .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+        .step{text-align:center}
+        .step-number{width:56px;height:56px;background:var(--orange);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;margin:0 auto 20px}
+        .step h3{font-size:18px;font-weight:700;margin-bottom:8px}
+        .step p{font-size:15px;color:var(--gray)}
+        .pricing{padding:100px 0;background:var(--white)}
+        .pricing h2{text-align:center;font-size:40px;font-weight:700;margin-bottom:16px}
+        .pricing>p{text-align:center;color:var(--gray);margin-bottom:48px}
+        .pricing-note{text-align:center;color:var(--gray);margin-bottom:32px;font-size:15px}
+        .pricing-card{background:var(--gray-light);max-width:500px;margin:0 auto;padding:48px;border-radius:16px;text-align:center}
+        .pricing-card h3{font-size:24px;font-weight:700;margin-bottom:8px}
+        .price{font-size:48px;font-weight:800;margin-bottom:8px}
+        .price span{font-size:16px;font-weight:500;color:var(--gray)}
+        .pricing-features{list-style:none;text-align:left;margin-bottom:32px}
+        .pricing-features li{padding:12px 0;padding-left:28px;position:relative}
+        .pricing-features li::before{content:"✓";position:absolute;left:0;color:#22c55e;font-weight:700}
+        .pricing-cta{display:block;width:100%;background:var(--orange);color:var(--white);padding:16px;font-size:18px;font-weight:600;text-decoration:none;border-radius:8px}
+        .faq{padding:100px 0;background:var(--gray-light)}
+        .faq h2{text-align:center;font-size:40px;font-weight:700;margin-bottom:60px}
+        .faq-list{max-width:800px;margin:0 auto}
+        .faq-item{background:var(--white);border-radius:12px;padding:24px;margin-bottom:16px;cursor:pointer}
+        .faq-item h4{font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+        .faq-item h4::after{content:"+";font-size:24px;color:var(--orange);font-weight:300}
+        .faq-item.active h4::after{content:"−"}
+        .faq-item p{color:var(--gray);margin-top:16px;display:none}
+        .faq-item.active p{display:block}
+        .footer-cta{padding:100px 0;background:var(--navy);text-align:center}
+        .footer-cta h2{color:var(--white);font-size:36px;font-weight:700;margin-bottom:32px}
+        .footer-cta>p{color:rgba(255,255,255,0.6)}
+        footer{padding:40px 0;background:var(--navy-light);text-align:center}
+        footer p{color:rgba(255,255,255,0.5);font-size:14px}
+        footer a{color:rgba(255,255,255,0.7);text-decoration:none;margin:0 12px}
+        @media(max-width:768px){.problem-grid,.pipeline-features,.features-grid,.steps{grid-template-columns:1fr}.hero h1{font-size:32px}}
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <a href="/" class="logo">ScoreCard <span>OS</span></a>
@@ -805,84 +95,60 @@
                 <a href="#how-it-works">How It Works</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
-                <a href="#pricing" class="nav-cta">Get Started — $20/mo</a>
+                <a href="#pricing" class="nav-cta">Get Started</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <div class="hero-badge">🔗 Lofty CRM Integration</div>
-            <h1>Know Where Every Lead Stands — From First Contact to Closing</h1>
-            <p>ScoreCard OS tracks your entire pipeline automatically. Know your GCI by source, spot stalled deals, and get weekly reports emailed to your team — all without touching a spreadsheet.</p>
-            <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="hero-cta">Get ScoreCard OS — $20/month</a>
-            <p class="hero-subline">30-min setup. Your data, your system. No lock-in.</p>
+            <h1>Know Where Every Lead Stands</h1>
+            <p>ScoreCard OS tracks your entire pipeline automatically. Know your GCI by source, spot stalled deals, and get weekly reports emailed to your team.</p>
+            <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="hero-cta">Get ScoreCard OS - $20/month</a>
+            <p class="hero-subline">30-min setup. Your data, your system. Cancel anytime.</p>
         </div>
     </section>
 
-    <!-- Problem -->
     <section class="problem">
         <div class="container">
-            <h2>Where's Your Data Going?</h2>
+            <h2>Most Team Leaders Are Flying Blind</h2>
             <div class="problem-grid">
                 <div class="problem-card">
-                    <div class="problem-icon">😵</div>
+                    <div class="problem-icon">📊</div>
                     <h3>Leads Disappear</h3>
                     <p>You don't know which sources are working. Leads enter Lofty but you can't track them through your pipeline.</p>
                 </div>
                 <div class="problem-card">
-                    <div class="problem-icon">📊</div>
+                    <div class="problem-icon">📉</div>
                     <h3>No Financial Visibility</h3>
                     <p>Can't calculate true GCI per source. Don't know which agents are actually profitable vs just busy.</p>
                 </div>
                 <div class="problem-card">
                     <div class="problem-icon">⏰</div>
                     <h3>Reports Take Hours</h3>
-                    <p>Manual spreadsheets every week. By the time you compile the data, it's already outdated.</p>
+                    <p>Manual spreadsheets every week. By the time you compile the data, it is already outdated.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pipeline -->
     <section class="pipeline">
         <div class="container">
             <h2>Your Entire Pipeline, Tracked Automatically</h2>
-            <p>6-stage funnel connected to Lofty via Zapier. Every lead movement is captured — no manual entry required.</p>
-            
+            <p>6-stage funnel connected to Lofty via Zapier. Every lead movement is captured - no manual entry required.</p>
             <div class="pipeline-flow">
-                <div class="pipeline-stage">
-                    <h4>Stage 1</h4>
-                    <p>Leads Generated</p>
-                </div>
+                <div class="pipeline-stage"><h4>Stage 1</h4><p>Leads Generated</p></div>
                 <div class="pipeline-arrow">→</div>
-                <div class="pipeline-stage">
-                    <h4>Stage 2</h4>
-                    <p>Qualified</p>
-                </div>
+                <div class="pipeline-stage"><h4>Stage 2</h4><p>Qualified</p></div>
                 <div class="pipeline-arrow">→</div>
-                <div class="pipeline-stage">
-                    <h4>Stage 3</h4>
-                    <p>Apt Set</p>
-                </div>
+                <div class="pipeline-stage"><h4>Stage 3</h4><p>Apt Set</p></div>
                 <div class="pipeline-arrow">→</div>
-                <div class="pipeline-stage">
-                    <h4>Stage 4</h4>
-                    <p>Signed</p>
-                </div>
+                <div class="pipeline-stage"><h4>Stage 4</h4><p>Signed</p></div>
                 <div class="pipeline-arrow">→</div>
-                <div class="pipeline-stage">
-                    <h4>Stage 5</h4>
-                    <p>Pending</p>
-                </div>
+                <div class="pipeline-stage"><h4>Stage 5</h4><p>Pending</p></div>
                 <div class="pipeline-arrow">→</div>
-                <div class="pipeline-stage">
-                    <h4>Stage 6</h4>
-                    <p>Closed</p>
-                </div>
+                <div class="pipeline-stage"><h4>Stage 6</h4><p>Closed</p></div>
             </div>
-
             <div class="pipeline-features">
                 <div class="pipeline-feature">
                     <h3>Auto-Capture</h3>
@@ -890,7 +156,7 @@
                 </div>
                 <div class="pipeline-feature">
                     <h3>Conversion Tracking</h3>
-                    <p>See lead-to-close rates by source, agent, and lead type. Know what's actually working.</p>
+                    <p>See lead-to-close rates by source, agent, and lead type. Know what is actually working.</p>
                 </div>
                 <div class="pipeline-feature">
                     <h3>Stale Lead Alerts</h3>
@@ -900,21 +166,20 @@
         </div>
     </section>
 
-    <!-- What You Get -->
-    <section class="what-you-get" id="features">
+    <section class="features" id="features">
         <div class="container">
             <h2>What You Get</h2>
-            <p>A complete lead tracking system — no subscriptions, no limits, your data.</p>
+            <p>A complete lead tracking system - no subscriptions, no limits, your data.</p>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">📋</div>
                     <h3>Raw Data Log</h3>
-                    <p>Every lead that enters your system — source, agent, timestamps, stage history. Complete audit trail.</p>
+                    <p>Every lead that enters your system - source, agent, timestamps, stage history. Complete audit trail.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">💰</div>
                     <h3>Deals Tab</h3>
-                    <p>Track every deal's financials — List Price, Sales Price, Commission %, GCI, Net GCI. Auto-calculated.</p>
+                    <p>Track every deal's financials - List Price, Sales Price, Commission %, GCI, Net GCI. Auto-calculated.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
@@ -929,7 +194,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
                     <h3>Dashboard</h3>
-                    <p>At-a-glance view of all key metrics — totals, averages, conversion rates, team performance.</p>
+                    <p>At-a-glance view of all key metrics - totals, averages, conversion rates, team performance.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚙️</div>
@@ -940,132 +205,6 @@
         </div>
     </section>
 
-    <!-- Reports -->
-    <section class="reports">
-        <div class="container">
-            <div class="reports-content">
-                <h2>Automated Email Reports</h2>
-                <p>Never compile another report. Everything sends automatically on schedule.</p>
-                <ul class="report-list">
-                    <li>
-                        <div class="report-icon">📅</div>
-                        <span><strong>Weekly Reports</strong> — Every Monday 8am</span>
-                    </li>
-                    <li>
-                        <div class="report-icon">📆</div>
-                        <span><strong>Monthly Reports</strong> — 1st of each month</span>
-                    </li>
-                    <li>
-                        <div class="report-icon">📊</div>
-                        <span><strong>Quarterly Reports</strong> — Jan, Apr, Jul, Oct</span>
-                    </li>
-                    <li>
-                        <div class="report-icon">🎯</div>
-                        <span><strong>Agent Reports</strong> — Each agent gets their own stats</span>
-                    </li>
-                    <li>
-                        <div class="report-icon">💼</div>
-                        <span><strong>Deal Updates</strong> — Weekly open deals summary</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="reports-visual">
-                <div class="email-preview">
-                    <div class="email-header">From: ScoreCard OS &lt;reports@scorecardos.com&gt;<br>To: Team Leader<br>Subject: Weekly Report — March 10, 2026</div>
-                    <div class="email-subject">This Week's Performance</div>
-                    <div class="email-metrics">
-                        <div class="email-metric">
-                            <div class="email-metric-label">New Leads</div>
-                            <div class="email-metric-value">127</div>
-                        </div>
-                        <div class="email-metric">
-                            <div class="email-metric-label">Appointments</div>
-                            <div class="email-metric-value">42</div>
-                        </div>
-                        <div class="email-metric">
-                            <div class="email-metric-label">Contracts</div>
-                            <div class="email-metric-value">8</div>
-                        </div>
-                        <div class="email-metric">
-                            <div class="email-metric-label">Net GCI</div>
-                            <div class="email-metric-value">$94K</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Deals Tab -->
-    <section class="deals">
-        <div class="container">
-            <div class="deals-content">
-                <h2>Deal-Level Financial Tracking</h2>
-                <p>When a lead hits "Signed" in Lofty, a deal row auto-creates in your sheet. Track every dollar.</p>
-                <ul class="deal-features">
-                    <li>
-                        <div class="deal-icon">💵</div>
-                        <div class="deal-text">
-                            <h4>Auto-Calculate GCI</h4>
-                            <p>Enter List Price, Sales Price, Commission %. Gross GCI and Net GCI calculate instantly.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="deal-icon">📉</div>
-                        <div class="deal-text">
-                            <h4>Track Deal Status</h4>
-                            <p>Active, Pending, Closed, Cancelled, Expired, Fell Through. Filter and analyze each category.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="deal-icon">⏱️</div>
-                        <div class="deal-text">
-                            <h4>Days on Market</h4>
-                            <p>Auto-calculated from List Date to COE or Expiration. Spot listing problems early.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="deal-icon">🔄</div>
-                        <div class="deal-text">
-                            <h4>Repeat Client Tracking</h4>
-                            <p>Tag repeat clients. Track lifetime value and referral sources.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="deals-visual">
-                <div class="deals-preview">
-                    <h4>Deal Summary</h4>
-                    <div class="deal-row">
-                        <span class="deal-label">Client</span>
-                        <span class="deal-value">Sarah Johnson</span>
-                    </div>
-                    <div class="deal-row">
-                        <span class="deal-label">Sales Price</span>
-                        <span class="deal-value">$485,000</span>
-                    </div>
-                    <div class="deal-row">
-                        <span class="deal-label">Commission</span>
-                        <span class="deal-value">3.0%</span>
-                    </div>
-                    <div class="deal-row">
-                        <span class="deal-label">Gross GCI</span>
-                        <span class="deal-value">$14,550</span>
-                    </div>
-                    <div class="deal-row">
-                        <span class="deal-label">Co-Broke</span>
-                        <span class="deal-value">-$7,275</span>
-                    </div>
-                    <div class="deal-row">
-                        <span class="deal-label">Net GCI</span>
-                        <span class="deal-value positive">$7,275</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
     <section class="how-it-works" id="how-it-works">
         <div class="container">
             <h2>Setup in 30 Minutes</h2>
@@ -1073,41 +212,39 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Get Your Copy</h3>
-                    <p>Pay $20/month and get your own copy of the ScoreCard OS Google Sheet template.</p>
+                    <p>Pay $20/month and get your own copy of the ScoreCard OS template.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>Book Onboarding</h3>
-                    <p>30-min call with Derek. We'll deploy the Apps Script webhook and configure your settings.</p>
+                    <p>30-min call with Derek. We will deploy the webhook and configure your settings.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3>Connect Zaps</h3>
-                    <p>Set up 6 Zaps in Zapier (free tier works). We guide you through each one — takes 20 mins.</p>
+                    <p>Set up 6 Zaps in Zapier. We guide you through each one - takes 20 mins.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
                     <h3>Go Live</h3>
-                    <p>Leads start flowing automatically. First report goes out next Monday. You're tracking everything.</p>
+                    <p>Leads start flowing automatically. First report goes out next Monday.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing -->
     <section class="pricing" id="pricing">
         <div class="container">
             <h2>Simple Pricing</h2>
             <p>One price. Everything included. Your data, your system.</p>
-            <p style="text-align: center; color: var(--gray); margin-bottom: 32px; font-size: 15px;">🎁 <strong>Free with Real Estate OS subscription</strong> — <a href="https://realestateos.com" style="color: var(--orange);">Learn more</a></p>
+            <p class="pricing-note">Free with Real Estate OS subscription - <a href="https://realestateos.com">Learn more</a></p>
             <div class="pricing-card">
                 <h3>ScoreCard OS</h3>
                 <div class="price">$20<span>/month</span></div>
-                <p class="pricing-note">Google Sheets template + Zapier automations + Email reports</p>
                 <ul class="pricing-features">
-                    <li>Complete Google Sheets system</li>
+                    <li>Complete tracking system</li>
                     <li>6-stage pipeline tracking</li>
-                    <li>Lofty CRM integration via Zapier</li>
+                    <li>Lofty CRM integration</li>
                     <li>Deal-level financial tracking</li>
                     <li>GCI & ROI calculations</li>
                     <li>Weekly, monthly, quarterly reports</li>
@@ -1117,69 +254,57 @@
                     <li>Year-end archive feature</li>
                     <li>30-min onboarding call</li>
                     <li>Email support</li>
-                    <li style="color: var(--orange);">✓ Free with REOS subscription</li>
+                    <li style="color:var(--orange)">Free with REOS subscription</li>
                 </ul>
-                <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="pricing-cta">Get Started — $20/month</a>
+                <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="pricing-cta">Get Started - $20/month</a>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
     <section class="faq" id="faq">
         <div class="container">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-list">
                 <div class="faq-item">
                     <h4>What exactly am I buying?</h4>
-                    <p>A complete lead tracking system with built-in automations. You get your own instance that connects to your Lofty CRM via Zapier. Tracks leads through a 6-stage pipeline, calculates GCI/ROI, and emails reports automatically.</p>
+                    <p>A complete lead tracking system with built-in automations. You get your own instance that connects to your Lofty CRM via Zapier.</p>
                 </div>
                 <div class="faq-item">
                     <h4>Do I need Zapier paid plan?</h4>
-                    <p>No — the free Zapier tier supports up to 5 Zaps, but you'll need 6. Most teams use Zapier Starter ($19.99/month) or already have a plan. The ScoreCard OS sheet itself is $20/month.</p>
+                    <p>No - the free Zapier tier supports up to 5 Zaps, but you will need 6. Most teams use Zapier Starter or already have a plan.</p>
                 </div>
                 <div class="faq-item">
                     <h4>What CRMs does it work with?</h4>
-                    <p>Currently Lofty CRM only. The Zaps are configured specifically for Lofty's data structure. More CRMs coming soon.</p>
+                    <p>Currently Lofty CRM only. The Zaps are configured specifically for Lofty's data structure.</p>
                 </div>
                 <div class="faq-item">
                     <h4>How long does setup take?</h4>
-                    <p>The onboarding call is 30 minutes. Setting up the 6 Zaps takes another 20 minutes. Most teams are fully live within 24 hours.</p>
+                    <p>The onboarding call is 30 minutes. Setting up the 6 Zaps takes another 20 minutes. Most teams are live within 24 hours.</p>
                 </div>
                 <div class="faq-item">
                     <h4>Can I customize the system?</h4>
-                    <p>Yes — it's your system. Change colors, add fields, modify calculations. We provide documentation for common customizations.</p>
+                    <p>Yes - it is your system. Change colors, add fields, modify calculations. We provide documentation for common customizations.</p>
                 </div>
                 <div class="faq-item">
                     <h4>What happens to my data if I cancel?</h4>
-                    <p>You keep everything. It's yours. The automated reports and webhook stop, but all your data stays with you.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>How are the reports sent?</h4>
-                    <p>Reports are sent automatically via email. You configure the sender and recipients in the Settings.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>What if a deal falls through?</h4>
-                    <p>Change the status to Cancelled, Expired, or Fell Through. The deal stays in your records but is excluded from GCI calculations.</p>
+                    <p>You keep everything. It is yours. The automated reports stop, but all your data stays with you.</p>
                 </div>
                 <div class="faq-item">
                     <h4>Is this included with Real Estate OS?</h4>
-                    <p>Yes — ScoreCard OS is free for all Real Estate OS subscribers. If you're already on REOS, you don't need to pay separately. <a href="https://realestateos.com" style="color: var(--orange);">Learn more about REOS</a>.</p>
+                    <p>Yes - ScoreCard OS is free for all Real Estate OS subscribers. <a href="https://realestateos.com">Learn more about REOS</a>.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer CTA -->
     <section class="footer-cta">
         <div class="container">
             <h2>Know Where Every Lead Stands</h2>
-            <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="hero-cta">Get ScoreCard OS — $20/month</a>
+            <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="hero-cta">Get ScoreCard OS - $20/month</a>
             <p>30-minute onboarding included. Your data, your system. Cancel anytime.</p>
-            <p style="margin-top: 12px; color: rgba(255,255,255,0.6); font-size: 14px;">Or <a href="https://realestateos.com" style="color: var(--orange);">get it free with REOS</a></p>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2026 ScoreCard OS. A <a href="https://realestateos.com">Real Estate OS</a> product.</p>
@@ -1188,7 +313,6 @@
     </footer>
 
     <script>
-        // FAQ Accordion
         document.querySelectorAll('.faq-item').forEach(item => {
             item.addEventListener('click', () => {
                 document.querySelectorAll('.faq-item').forEach(other => {
