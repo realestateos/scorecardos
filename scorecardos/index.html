@@ -17,11 +17,15 @@
         nav a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:15px;font-weight:500}
         nav a:hover{color:var(--white)}
         .nav-cta{background:var(--orange);color:var(--white)!important;padding:10px 20px;border-radius:6px;font-weight:600}
-        .hero{background:var(--navy);padding:100px 0 80px;text-align:center}
-        .hero h1{font-size:52px;font-weight:800;color:var(--white);line-height:1.1;margin-bottom:24px}
-        .hero p{font-size:20px;color:rgba(255,255,255,0.8);max-width:700px;margin:0 auto 40px}
+        .hero{background:var(--navy);padding:80px 0}
+        .hero .container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+        .hero-content{text-align:left}
+        .hero h1{font-size:48px;font-weight:800;color:var(--white);line-height:1.1;margin-bottom:24px}
+        .hero p{font-size:18px;color:rgba(255,255,255,0.8);margin-bottom:32px}
         .hero-cta{display:inline-block;background:var(--orange);color:var(--white);padding:18px 36px;font-size:18px;font-weight:600;text-decoration:none;border-radius:8px}
         .hero-subline{margin-top:16px;font-size:14px;color:rgba(255,255,255,0.6)}
+        .hero-video{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,0.3)}
+        .hero-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
         .video-section{padding:60px 0;background:var(--navy);border-top:1px solid rgba(255,255,255,0.1)}
         .video-container{max-width:900px;margin:0 auto}
         .video-wrapper{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,0.3)}
@@ -89,7 +93,7 @@
         footer{padding:40px 0;background:var(--navy-light);text-align:center}
         footer p{color:rgba(255,255,255,0.5);font-size:14px}
         footer a{color:rgba(255,255,255,0.7);text-decoration:none;margin:0 12px}
-        @media(max-width:768px){.problem-grid,.pipeline-features,.features-grid,.steps{grid-template-columns:1fr}.hero h1{font-size:32px}}
+        @media(max-width:768px){.hero .container{grid-template-columns:1fr}.hero-content{text-align:center}.hero h1{font-size:36px}.problem-grid,.pipeline-features,.features-grid,.steps{grid-template-columns:1fr}}
     </style>
 </head>
 <body>
@@ -108,26 +112,19 @@
 
     <section class="hero">
         <div class="container">
-            <h1>Know Where Every Lead Stands</h1>
-            <p>ScoreCard OS tracks your entire pipeline automatically. Know your GCI by source, spot stalled deals, and get weekly reports emailed to your team.</p>
-            <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="hero-cta">Get ScoreCard OS - $20/month</a>
-            <p class="hero-subline">30-min setup. Your data, your system. Cancel anytime.</p>
-        </div>
-    </section>
-
-    <section class="video-section">
-        <div class="container">
-            <h2>See ScoreCard OS in Action</h2>
-            <p>Watch the complete product demo and see how it transforms your business tracking.</p>
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/jrawRsbqfnQ" 
-                        title="ScoreCard OS Demo" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
+            <div class="hero-content">
+                <h1>Know Where Every Lead Stands</h1>
+                <p>ScoreCard OS tracks your entire pipeline automatically. Know your GCI by source, spot stalled deals, and get weekly reports emailed to your team.</p>
+                <a href="https://buy.stripe.com/fZu4gte2j8VQcvz67lgbm0r" class="hero-cta">Get ScoreCard OS - $20/month</a>
+                <p class="hero-subline">30-min setup. Your data, your system. Cancel anytime.</p>
+            </div>
+            <div class="hero-video">
+                <iframe 
+                    src="https://www.youtube.com/embed/jrawRsbqfnQ" 
+                    title="ScoreCard OS Demo" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
     </section>
